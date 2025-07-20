@@ -88,7 +88,6 @@ while (1)
         used_letter[count] = tolower(letter);
         count+= 1;
       }
-}
 found = 0;
       for (int i = 0; word[i] != '\0'; i++)
       {
@@ -100,6 +99,7 @@ found = 0;
         }
 
       }
+}
 
 
 
