@@ -9,6 +9,8 @@ int main()
 {
     int is_word_valid;
     char word[MAX];
+    int guess_letter = 0;
+    char used_letter[MAX_LETTER];
 
     printf("Let's play Hangman!");
     
@@ -62,6 +64,35 @@ int main()
         printf("_ ");
     }
     printf("\n");
-
-
 }
+
+while (1)
+{
+    printf("Enter a letter: ");
+    scanf(" %c", &letter);
+    guess_letter = 0;
+
+    for (int i = 0; i<count; i++)
+        {
+            if (used_letter[i] == tolower(letter))
+            {
+                guess_letter = 1;
+            }
+        }
+    if (guess_letter == 1)
+    {
+        printf("You have already guessed used this letter!\n");
+    }
+    else
+      {
+        used_letter[count] = tolower(letter);
+        count+= 1;
+      }
+}
+
+
+
+
+
+
+
