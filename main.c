@@ -89,7 +89,17 @@ while (1)
         count+= 1;
       }
 }
+found = 0;
+      for (int i = 0; word[i] != '\0'; i++)
+      {
 
+        if (tolower(letter) == tolower(word[i]))
+        {
+          found = 1;
+          break;
+        }
+
+      }
 
 
 
