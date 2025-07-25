@@ -112,6 +112,29 @@ int main()
         
    }
 
+    all_revealed = 1;
+      for (int i = 0; word[i] != '\0'; i++)
+      {
+        match = 0;
+        for (int j = 0; j < count; j++)
+        {
+          if (word[i]== used_letter[j])
+          {
+            match = 1;
+          }
+        }
+        if (match == 1)
+        {
+          printf("%c ", word[i]);
+        }
+        else
+        {
+          printf("_ ");
+          all_revealed = 0;
+        }
+      }
+
+
     
 
 
