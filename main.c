@@ -64,10 +64,9 @@ int main()
         printf("_ ");
     }
     printf("\n");
-}
 
-while (1)
-{
+    while (1)
+    {
     printf("Enter a letter: ");
     scanf(" %c", &letter);
     guess_letter = 0;
@@ -88,7 +87,7 @@ while (1)
         used_letter[count] = tolower(letter);
         count+= 1;
       }
-found = 0;
+    found = 0;
       for (int i = 0; word[i] != '\0'; i++)
       {
 
@@ -99,18 +98,23 @@ found = 0;
         }
 
       }
-}
+        if(found == 0) 
+    {
+        chance --;
+        printf("The letter you guessed is incorrect! You have %d chances left. \n", chance);
+    }
 
-if(found == 0) 
-{
-    chance --;
-    printf("The letter you guessed is incorrect! You have %d chances left. \n", chance);
-}
+    if(chance == 0)
+    {
+        printf("Game Over");
+        break;
+    }
+        
+   }
 
-if(chance == 0)
-{
-    printf("Game Over");
-    break;
+    
+
+
 }
 
 
