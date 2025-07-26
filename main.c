@@ -9,8 +9,17 @@ int main()
 {
     int is_word_valid;
     char word[MAX];
-    int guess_letter = 0;
+    int chances = 6;
+    char used_word;
     char used_letter[MAX_LETTER];
+    char letter;
+    int count = 0;
+    int guess_letter = 0;
+    int found = 0;
+    int chance = 6;
+    int correct_guess = 0;
+    int all_revealed = 0;
+    int match;
 
     printf("Let's play Hangman!");
     
