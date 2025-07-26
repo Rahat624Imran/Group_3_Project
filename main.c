@@ -132,6 +132,14 @@ int main()
           printf("_ ");
           all_revealed = 0;
         }
+
+           if (all_revealed == 1)
+      {
+        printf("Congratulations, You win!\n");
+        break;
+      }
+
+
       }
 
 
