@@ -1,8 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdbool.h>
+
 #define MAX 51
 #define MAX_LETTER 27
+
+bool print_game_state(char secret_word[], char used_letters[], int num_used);
 
 
 int main()
@@ -121,26 +125,7 @@ int main()
         
    }
 
-    all_revealed = 1;
-      for (int i = 0; word[i] != '\0'; i++)
-      {
-        match = 0;
-        for (int j = 0; j < count; j++)
-        {
-          if (word[i]== used_letter[j])
-          {
-            match = 1;
-          }
-        }
-        if (match == 1)
-        {
-          printf("%c ", word[i]);
-        }
-        else
-        {
-          printf("_ ");
-          all_revealed = 0;
-        }
+    
 
            if (all_revealed == 1)
       {
@@ -150,12 +135,60 @@ int main()
 
 
       }
+    
+bool print_game_state(char secret_word[], char used_letters[], int num_used)
+{
+    bool all_revealed = 1;
 
+    printf("Word: ");
+      for (int i = 0; secret_word[i] != '\0'; i++)
+      {
+        bool match_found = 0;
+        for (int j = 0; j < num_used; j++)
+        {
+          if (secret_word[i]== used_letters[j])
+          {
+            match_found = 1;
+              break;
+          }
+        }
+        if (match_found)
+        {
+          printf("%c ", secret_word[i]);
+        }
+        else
+        {
+          printf("_ ");
+          all_revealed = 0;
+        }
+}
+
+    printf("\n");
+
+    printf("Used Letters: ");
+    if(num_used == 0)
+    {
+        printf("None");
+    }
+    else
+    {
+        for(int i = 0; i<num_used; i++)
+            {
+                printf("%c ", toupper(used_letters[i]));
+            }
+    }
+    printf("\n");
+
+    return all_revealed;
+
+}
+        
 
     
 
 
 }
+
 
 
 
