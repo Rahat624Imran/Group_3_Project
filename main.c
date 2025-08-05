@@ -6,6 +6,8 @@
 #define MAX 51
 #define MAX_LETTER 27
 
+void print_hangman(int chances_left);
+
 bool print_game_state(char secret_word[], char used_letters[], int num_used);
 
 char get_player_guess(char used_letters[], int num_used);
@@ -116,6 +118,43 @@ int main()
 
 
       }
+
+void print_hangman(int chances_left)
+{
+    printf("\n--- Hangman ---\n");
+    printf("  +---+\n");
+    printf("  |   |\n");
+
+    if (chances_left <= 5) {
+        printf("  O   |\n");
+    } else {
+        printf("      |\n");
+    }
+
+    
+    if (chances_left <= 2) {
+        printf(" /|\\  |\n");
+    } else if (chances_left <= 3) {
+        printf(" /|   |\n");
+    } else if (chances_left <= 4) {
+        printf("  |   |\n");
+    } else {
+        printf("      |\n");
+    }
+
+    
+    if (chances_left <= 0) {
+        printf(" / \\  |\n");
+    } else if (chances_left <= 1) {
+        printf(" /    |\n");
+    } else {
+        printf("      |\n");
+    }
+
+    printf("      |\n");
+    printf("=========\n");
+    printf("Chances Left: %d\n", chances_left);
+}
     
 bool print_game_state(char secret_word[], char used_letters[], int num_used)
 {
@@ -199,6 +238,7 @@ char get_player_guess(char used_letters[],int num_used)
     }   
 return guess;    
 }
+
 
 
 
