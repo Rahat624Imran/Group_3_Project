@@ -3,55 +3,47 @@
 #include <ctype.h>
 #include <stdbool.h>
 
-#define MAX 51
-#define MAX_LETTER 27
+#define MAX_WORD_LENGTH 51
+#define MAX_USED_LETTERS 27
 
 void print_hangman(int chances_left);
-
 bool print_game_state(char secret_word[], char used_letters[], int num_used);
-
 char get_player_guess(char used_letters[], int num_used);
+
+
 int main()
 {
-    int is_word_valid;
-    char word[MAX];
-    int chances = 6;
-    char used_word;
-    char used_letter[MAX_LETTER];
-    char letter;
-    int count = 0;
-    int guess_letter = 0;
-    int found = 0;
-    int chance = 6;
-    int correct_guess = 0;
-    int all_revealed = 0;
-    int match;
+    char secret_word[MAX_WORD_LENGTH];
+    char used_letters[MAX_USED_LETTERS] = {0};
+    int num_used_letters = 0;
+    int chances_left = 6;
+    bool is_word_valid;
 
     printf("Let's play Hangman!");
     
     while (1)
     {
-      is_word_valid = 1;
-      printf("Player 1, insert the secret word (letters only, max %d characters):\n", MAX - 1);
+      is_word_valid = true;
+      printf("Player 1, insert the secret word (letters only, max %d characters):\n", MAX_WORD_LENGTH - 1);
 
-    if (fgets(word, MAX, stdin) != NULL)
+    if (fgets(secret_word, MAX_WORD_LENGTH, stdin) != NULL)
     {
-        word[strcspn(word, "\n")] = '\0';
+        secret_word[strcspn(secret_word, "\n")] = '\0';
 
-        if (strlen(word)== 0)
+        if (strlen(secret_word)== 0)
         {
           printf("Error: Word cannot be empty. Please try again.\n");
-          is_word_valid = 0;
+          is_word_valid = false;
         }
         else
         {
-          for (int i = 0; word[i] != '\0'; i++)
+          for (int i = 0; secret_word[i] != '\0'; i++)
         {
 
-            if (!isalpha(word[i]))
+            if (!isalpha(secret_word[i]))
             {
                 printf("Error:Only alphabets allowed. Please try again. \n");
-                is_word_valid = 0;
+                is_word_valid = false;
 
             }
 
@@ -73,51 +65,58 @@ int main()
         printf("\n");
         }
     
-    printf("Word to guess: ");
-    for (int i = 0; word[i] != '\0'; i++)
-    {
-        printf("_ ");
-    }
-    printf("\n");
-
-    while (1)
-    {
     
-    found = 0;
-      for (int i = 0; word[i] != '\0'; i++)
-      {
 
-        if (tolower(letter) == tolower(word[i]))
+    while (chances_left > 0)
+    {
+        print_hangman(chances_left);
+        bool word_is_guessed = print_game_state(secret_word, used_letters, num_used_letters);
+
+       
+        if (word_is_guessed)
         {
-          found = 1;
-          break;
+            printf("\nCongratulations, You Win!\n");
+            break; 
         }
 
-      }
-        if(found == 0) 
-    {
-        chance --;
-        printf("The letter you guessed is incorrect! You have %d chances left. \n", chance);
-    }
-
-    if(chance == 0)
-    {
-        printf("Game Over");
-        break;
-    }
         
-   }
+        char guess = get_player_guess(used_letters, num_used_letters);
+
+      
+        used_letters[num_used_letters] = guess;
+        num_used_letters++;
+
+       
+        bool found_in_word = false;
+        for (int i = 0; secret_word[i] != '\0'; i++) {
+            if (tolower(secret_word[i]) == guess) {
+                found_in_word = true;
+                break;
+            }
+        }
+
+        
+        if (found_in_word)
+        {
+            printf("\nGood guess!\n");
+        }
+        else
+        {
+            printf("\nSorry, '%c' is not in the word.\n", guess);
+            chances_left--; 
+        }
+    }
 
     
+    if (chances_left == 0)
+    {
+        print_hangman(chances_left); 
+        printf("\nGame Over! You ran out of chances.\n");
+        printf("The word was: %s\n", secret_word);
+    }
 
-           if (all_revealed == 1)
-      {
-        printf("Congratulations, You win!\n");
-        break;
-      }
-
-
-      }
+    
+}
 
 void print_hangman(int chances_left)
 {
@@ -125,29 +124,38 @@ void print_hangman(int chances_left)
     printf("  +---+\n");
     printf("  |   |\n");
 
-    if (chances_left <= 5) {
+    if (chances_left <= 5)
+    {
         printf("  O   |\n");
-    } else {
+    } else
+    {
         printf("      |\n");
     }
 
     
-    if (chances_left <= 2) {
+    if (chances_left <= 2)
+    {
         printf(" /|\\  |\n");
-    } else if (chances_left <= 3) {
+    } else if (chances_left <= 3) 
+    {
         printf(" /|   |\n");
-    } else if (chances_left <= 4) {
+    } else if (chances_left <= 4)
+    {
         printf("  |   |\n");
-    } else {
+    } else
+    {
         printf("      |\n");
     }
 
     
-    if (chances_left <= 0) {
+    if (chances_left <= 0) 
+    {
         printf(" / \\  |\n");
-    } else if (chances_left <= 1) {
+    } else if (chances_left <= 1)
+    {
         printf(" /    |\n");
-    } else {
+    } else
+    {
         printf("      |\n");
     }
 
@@ -206,38 +214,47 @@ char get_player_guess(char used_letters[],int num_used)
 {
     char guess ;
     bool is_new_valid_guess=false;
-    while(!is_new_valid_guess){
-    printf("Enter your guess: ");
-    if(scanf(" %c", &guess)!= 1){
-        while(getchar() != '\n' && getchar() != EOF);
-        printf("Invalid input format.Please try again.\n");
-        continue;
-    }
-     while(getchar() != '\n' && getchar() != EOF);
-    if(!isalpha(guess)){
-     printf("That's not a letter.Please try again.\n");
-     continue;
-    }
-        
-    guess = tolower(guess);
-
-    bool already_used = false;    
-    for(int i = 0;i < num_used; i++){
-        if(used_letters[i] == guess){
-        already_used = true;
-        break;
-        }
-    }
-    if (already_used)
+    while(!is_new_valid_guess)
     {
-        printf("You already guessed '%c'.Try another letter.\n",guess);
-    }else
-      {
-        is_new_valid_guess = true;
-      }
-    }   
-return guess;    
+        printf("Enter your guess: ");
+        if(scanf(" %c", &guess)!= 1)
+        {
+            while(getchar() != '\n' && getchar() != EOF);
+            {
+                printf("Invalid input format.Please try again.\n");
+                continue;
+            }
+        }
+        while(getchar() != '\n' && getchar() != EOF);
+        {
+             if(!isalpha(guess))
+             {
+                 printf("That's not a letter.Please try again.\n");
+                 continue;
+             }
+                
+            guess = tolower(guess);
+        
+            bool already_used = false;    
+            for(int i = 0;i < num_used; i++)
+            {
+                if(used_letters[i] == guess)
+                {
+                already_used = true;
+                break;
+                }
+            }
+            if (already_used)
+            {
+                printf("You already guessed '%c'.Try another letter.\n",guess);
+            }else
+              {
+                is_new_valid_guess = true;
+          }
+        }   
+    return guess;    
 }
+
 
 
 
