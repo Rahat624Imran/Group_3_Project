@@ -1,15 +1,11 @@
-&nbsp;\_   \_     \_     \_   \_   \_\_\_\_  \_\_  \_\_     \_     \_   \_ 
-
-| | | |   / \\   | \\ | | / \_\_\_||  \\/  |   / \\   | \\ | |
-
-| |\_| |  / \_ \\  |  \\| || |  \_ | |\\/| |  / \_ \\  |  \\| |
-
-|  \_  | / \_\_\_ \\ | |\\  || |\_| || |  | | / \_\_\_ \\ | |\\  |
-
-|\_| |\_|/\_/   \\\_\\|\_| \\\_| \\\_\_\_\_||\_|  |\_|/\_/   \\\_\\|\_| \\\_|
-
-
-
+  _                                             
+ | |                                            
+ | |__   __ _ _ __   __ _ _ __ ___   __ _ _ __  
+ | '_ \ / _` | '_ \ / _` | '_ ` _ \ / _` | '_ \ 
+ | | | | (_| | | | | (_| | | | | | | (_| | | | |
+ |_| |_|\__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|
+                     __/ |                      
+                    |___/                       
 
 
 
@@ -30,3 +26,4 @@ Features of the program:
 * The frequency of attempts and previous attempts are all recorded and displayed.
 * The hangman figure is visualized using ASCII art.
 * Input of repeated or wrong guesses are validated accordingly.
+
