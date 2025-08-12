@@ -29,3 +29,20 @@ Features of the program:
 * Input of repeated or wrong guesses are validated accordingly.
 
 
+How to run it?
+
+Clone or download this repository:
+```bash
+git clone https://github.com/Rahat624Imran/Group_3_Project.git
+cd Group_3_Project
+```
+
+Compile the program:
+```bash
+gcc main.c -o hangman
+```
+
+Run the game:
+```bash
+./hangman
+```
