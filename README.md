@@ -41,3 +41,8 @@ Compile the program:
 ```bash
 gcc main.c -o hangman
 ```
+
+Run the game:
+```bash
+./hangman
+```
