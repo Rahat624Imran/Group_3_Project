@@ -174,7 +174,7 @@ bool print_game_state(char secret_word[], char used_letters[], int num_used)
         bool match_found = 0;
         for (int j = 0; j < num_used; j++)
         {
-          if (secret_word[i]== used_letters[j])
+          if (tolower(secret_word[i])== used_letters[j])
           {
             match_found = 1;
               break;
@@ -212,48 +212,51 @@ bool print_game_state(char secret_word[], char used_letters[], int num_used)
 }
 char get_player_guess(char used_letters[],int num_used)
 {
-    char guess ;
+    int c;
+    char guess;
     bool is_new_valid_guess=false;
     while(!is_new_valid_guess)
     {
         printf("Enter your guess: ");
         if(scanf(" %c", &guess)!= 1)
         {
-            while(getchar() != '\n' && getchar() != EOF);
-            {
-                printf("Invalid input format.Please try again.\n");
-                continue;
-            }
+            while(c = getchar() != '\n' && c != EOF);
+            printf("Invalid input format.Please try again.\n");
+            continue;
+            
         }
-        while(getchar() != '\n' && getchar() != EOF);
+        while(c = getchar() != '\n' && c != EOF);
+        if(!isalpha(guess))
         {
-             if(!isalpha(guess))
-             {
-                 printf("That's not a letter.Please try again.\n");
-                 continue;
-             }
+            printf("That's not a letter.Please try again.\n");
+            continue;
+         }
                 
-            guess = tolower(guess);
+        guess = tolower(guess);
         
-            bool already_used = false;    
-            for(int i = 0;i < num_used; i++)
+        bool already_used = false;    
+        for(int i = 0;i < num_used; i++)
+        {
+            if(used_letters[i] == guess)
             {
-                if(used_letters[i] == guess)
-                {
                 already_used = true;
                 break;
-                }
             }
-            if (already_used)
-            {
-                printf("You already guessed '%c'.Try another letter.\n",guess);
-            }else
-              {
-                is_new_valid_guess = true;
-          }
-        }   
-    return guess;    
+        }
+        if (already_used)
+        {
+            printf("You already guessed '%c'.Try another letter.\n",guess);
+        }
+        else
+        {
+            is_new_valid_guess = true;
+        }
+           
+      
 }
+    return guess;  
+}
+
 
 
 
